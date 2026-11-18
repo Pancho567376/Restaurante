@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}{% if comida %}Editar comida{% else %}Agregar comida{% endif %} | La Mesa{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-7">
+        <a class="link-success text-decoration-none" href="{% url 'comida_list' %}">&larr; Volver a la carta</a>
+
+        <div class="card border-0 shadow-sm mt-4">
+            <div class="card-body p-4 p-md-5">
+                <p class="text-uppercase text-success fw-semibold small mb-2">Gestión de la carta</p>
+                <h1 class="h2 fw-bold mb-2">{% if comida %}Editar comida{% else %}Agregar una comida{% endif %}</h1>
+                <p class="text-secondary mb-4">Completa los datos del plato para mostrarlo en la carta.</p>
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" for="{{ form.nombre.id_for_label }}">Nombre</label>
+                        <input class="form-control{% if form.nombre.errors %} is-invalid{% endif %}" type="text" name="{{ form.nombre.html_name }}" id="{{ form.nombre.id_for_label }}" value="{{ form.nombre.value|default_if_none:'' }}" maxlength="100" required>
+                        {% for error in form.nombre.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" for="{{ form.descripcion.id_for_label }}">Descripción</label>
+                        <textarea class="form-control{% if form.descripcion.errors %} is-invalid{% endif %}" name="{{ form.descripcion.html_name }}" id="{{ form.descripcion.id_for_label }}" rows="4" required>{{ form.descripcion.value|default_if_none:'' }}</textarea>
+                        {% for error in form.descripcion.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" for="{{ form.precio.id_for_label }}">Precio</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input class="form-control{% if form.precio.errors %} is-invalid{% endif %}" type="number" name="{{ form.precio.html_name }}" id="{{ form.precio.id_for_label }}" value="{{ form.precio.value|default_if_none:'' }}" min="0" step="0.01" required>
+                            {% for error in form.precio.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold" for="{{ form.categoria.id_for_label }}">Categoría</label>
+                        <select class="form-select{% if form.categoria.errors %} is-invalid{% endif %}" name="{{ form.categoria.html_name }}" id="{{ form.categoria.id_for_label }}" required>
+                            <option value="">Selecciona una categoría</option>
+                            {% for categoria in form.categoria.field.queryset %}
+                                <option value="{{ categoria.pk }}"{% if form.categoria.value|stringformat:"s" == categoria.pk|stringformat:"s" %} selected{% endif %}>{{ categoria.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                        {% for error in form.categoria.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <button class="btn btn-success" type="submit">{% if comida %}Guardar cambios{% else %}Agregar a la carta{% endif %}</button>
+                        <a class="btn btn-outline-secondary" href="{% url 'comida_list' %}">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

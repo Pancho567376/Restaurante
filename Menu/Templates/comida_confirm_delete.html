@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Eliminar {{ comida.nombre }} | La Mesa{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4 p-md-5 text-center">
+                <span class="badge text-bg-danger-subtle text-danger-emphasis mb-3">Confirmación</span>
+                <h1 class="h3 fw-bold">¿Eliminar esta comida?</h1>
+                <p class="text-secondary mt-3">
+                    Se eliminará <strong>{{ comida.nombre }}</strong> de la carta. Esta acción no se puede deshacer.
+                </p>
+
+                <form method="post" class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit">Sí, eliminar</button>
+                    <a class="btn btn-outline-secondary" href="{% url 'comida_detail' comida.pk %}">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

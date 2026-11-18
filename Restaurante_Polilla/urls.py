@@ -16,7 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from Menu.views import ComidaDetailView, ComidaListView, ComidaCreateView, ComidaUpdateView, ComidaDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', ComidaListView.as_view(), name='home'),
+    path('comidas/<int:pk>/', ComidaDetailView.as_view(), name='comida_detail'),
+    path('comidas/', ComidaListView.as_view(), name='comida_list'),
+    path('comidas/create/', ComidaCreateView.as_view(), name='comida_create'),
+    path('comidas/<int:pk>/update/', ComidaUpdateView.as_view(), name='comida_update'),
+    path('comidas/<int:pk>/delete/', ComidaDeleteView.as_view(), name='comida_delete')
 ]

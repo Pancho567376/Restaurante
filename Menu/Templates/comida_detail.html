@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}{{ comida.nombre }} | La Mesa{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-9 col-xl-8">
+        <a class="link-success text-decoration-none" href="{% url 'comida_list' %}">&larr; Volver a la carta</a>
+
+        <article class="card border-0 shadow-sm mt-4">
+            <div class="card-body p-4 p-md-5">
+                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-start gap-3 mb-4">
+                    <div>
+                        <span class="badge rounded-pill text-bg-success-subtle text-success-emphasis mb-3">
+                            {{ comida.categoria.nombre }}
+                        </span>
+                        <h1 class="display-6 fw-bold mb-0">{{ comida.nombre }}</h1>
+                    </div>
+                    <p class="h3 fw-bold text-success text-nowrap mb-0">${{ comida.precio }}</p>
+                </div>
+
+                <hr>
+
+                <h2 class="h5 fw-bold mt-4">Descripción</h2>
+                <p class="text-secondary mb-0">{{ comida.descripcion|linebreaksbr }}</p>
+
+                <div class="d-flex flex-wrap gap-2 mt-5">
+                    <a class="btn btn-success" href="{% url 'comida_update' comida.pk %}">Editar comida</a>
+                    <a class="btn btn-outline-danger" href="{% url 'comida_delete' comida.pk %}">Eliminar</a>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
+{% endblock %}

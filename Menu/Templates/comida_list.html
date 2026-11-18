@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Carta | La Mesa{% endblock %}
+
+{% block content %}
+<section class="mb-5">
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-end gap-3">
+        <div>
+            <p class="text-uppercase text-success fw-semibold small mb-2">Nuestra cocina</p>
+            <h1 class="display-5 fw-bold mb-2">La carta</h1>
+            <p class="text-secondary mb-0">Platos preparados para disfrutar, hechos con ingredientes de calidad.</p>
+        </div>
+        <a class="btn btn-success btn-lg" href="{% url 'comida_create' %}">Agregar comida</a>
+    </div>
+</section>
+
+<section aria-label="Comidas disponibles">
+    <div class="row g-4">
+        {% for comida in comidas %}
+            <div class="col-sm-6 col-xl-4">
+                <article class="card h-100 border-0 shadow-sm">
+                    <div class="card-body d-flex flex-column p-4">
+                        <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                            <span class="badge rounded-pill text-bg-success-subtle text-success-emphasis">
+                                {{ comida.categoria.nombre }}
+                            </span>
+                            <span class="fw-bold text-success text-nowrap">${{ comida.precio }}</span>
+                        </div>
+                        <h2 class="h4 card-title fw-bold">{{ comida.nombre }}</h2>
+                        <p class="card-text text-secondary flex-grow-1">{{ comida.descripcion|truncatewords:24 }}</p>
+                        <a class="btn btn-outline-success mt-3 align-self-start" href="{% url 'comida_detail' comida.pk %}">
+                            Ver detalle
+                        </a>
+                    </div>
+                </article>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="text-center bg-white border rounded-4 p-5 shadow-sm">
+                    <h2 class="h4 fw-bold">Todavía no hay comidas en la carta</h2>
+                    <p class="text-secondary mb-4">Agrega el primer plato para empezar a armar el menú.</p>
+                    <a class="btn btn-success" href="{% url 'comida_create' %}">Agregar primera comida</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
