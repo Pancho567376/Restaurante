@@ -1,0 +1,79 @@
+:root {
+    --restaurant-green: #176b4d;
+    --restaurant-green-dark: #104c38;
+    --restaurant-cream: #f7f8f4;
+}
+
+body {
+    background-color: var(--restaurant-cream) !important;
+}
+
+.navbar.navbar-dark.bg-dark {
+    background: linear-gradient(110deg, var(--restaurant-green-dark), var(--restaurant-green)) !important;
+}
+
+.navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    letter-spacing: 0.02em;
+}
+
+.navbar-brand img {
+    width: 2.6rem;
+    height: 2.6rem;
+    padding: 0.2rem;
+    object-fit: contain;
+    background-color: #fff;
+    border-radius: 0.5rem;
+}
+
+.navbar .nav-link {
+    transition: color 160ms ease, opacity 160ms ease;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus-visible {
+    color: #d7f0df;
+}
+
+.card {
+    border-radius: 1rem;
+}
+
+.card.shadow-sm {
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.card.shadow-sm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.75rem 1.75rem rgb(24 52 38 / 10%) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--restaurant-green);
+    box-shadow: 0 0 0 0.2rem rgb(23 107 77 / 15%);
+}
+
+.btn-success {
+    --bs-btn-bg: var(--restaurant-green);
+    --bs-btn-border-color: var(--restaurant-green);
+    --bs-btn-hover-bg: var(--restaurant-green-dark);
+    --bs-btn-hover-border-color: var(--restaurant-green-dark);
+    --bs-btn-active-bg: var(--restaurant-green-dark);
+    --bs-btn-active-border-color: var(--restaurant-green-dark);
+}
+
+footer {
+    margin-top: 2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -15,8 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from Menu.views import ComidaDetailView, ComidaListView, ComidaCreateView, ComidaUpdateView, ComidaDeleteView
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +26,7 @@ urlpatterns = [
     path('comidas/', ComidaListView.as_view(), name='comida_list'),
     path('comidas/create/', ComidaCreateView.as_view(), name='comida_create'),
     path('comidas/<int:pk>/update/', ComidaUpdateView.as_view(), name='comida_update'),
-    path('comidas/<int:pk>/delete/', ComidaDeleteView.as_view(), name='comida_delete')
+    path('comidas/<int:pk>/delete/', ComidaDeleteView.as_view(), name='comida_delete'),
+    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
